@@ -2,8 +2,8 @@ import axios from 'axios';
 
 import { auth } from '../firebase';
 
-const isProd = import.meta.env.PROD;
-const API = axios.create({ baseURL: import.meta.env.VITE_API_URL || (isProd ? 'https://noted-backend-i1m3.onrender.com/api' : 'http://localhost:5000/api') });
+const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+const API = axios.create({ baseURL: import.meta.env.VITE_API_URL || (isLocalhost ? 'http://localhost:5000/api' : 'https://noted-backend-i1m3.onrender.com/api') });
 
 API.interceptors.request.use(async (req) => {
   if (auth.currentUser) {
